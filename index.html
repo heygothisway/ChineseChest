@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>親子歡樂象棋＆暗棋二合一</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#8c5828" />
-  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#4e2a0e" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="歡樂象棋" />
-  <link rel="icon" type="image/png" href="icons/icon-192.png" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="親子象棋暗棋" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <title>親子歡樂象棋＆暗棋二合一</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
@@ -70,21 +70,21 @@
     }
 
     .dark-board-surface {
-      background-color: #2e6f40;
+      background-color: #e6be8a;
       background-image:
         repeating-linear-gradient(
-          0deg,
-          rgba(255, 255, 255, 0.03) 0px,
-          rgba(255, 255, 255, 0.03) 1px,
-          transparent 1px,
-          transparent 10px
+          90deg,
+          rgba(139, 90, 43, 0.045) 0px,
+          rgba(139, 90, 43, 0.045) 2px,
+          transparent 2px,
+          transparent 9px
         ),
-        radial-gradient(ellipse at center, #38824c 0%, #2e6f40 100%);
+        radial-gradient(ellipse at center, #f3d5a5 0%, #e6be8a 100%);
       box-shadow:
-        0 14px 28px rgba(20, 52, 30, 0.32),
-        inset 0 2px 6px rgba(255, 255, 255, 0.25),
-        inset 0 -4px 8px rgba(15, 42, 22, 0.5);
-      border: 5px solid #6e421b;
+        0 14px 28px rgba(72, 40, 12, 0.25),
+        inset 0 2px 4px rgba(255, 255, 255, 0.55),
+        inset 0 -4px 8px rgba(94, 55, 20, 0.35);
+      border: 4px solid #75461c;
     }
 
     /* 立體圓木棋子 */
@@ -130,15 +130,15 @@
       z-index: 20;
     }
 
-    /* 暗棋蓋牌 */
+    /* 暗棋蓋牌（翠綠色・無金色圓徽） */
     .facedown-piece {
       position: relative;
       border-radius: 9999px;
-      background: radial-gradient(circle at 32% 28%, #b5733c 0%, #8b4f21 70%, #5e3110 100%);
+      background: radial-gradient(circle at 32% 28%, #34d399 0%, #10b981 55%, #047857 100%);
       box-shadow:
-        0 4px 0 #4a2409,
-        0 6px 10px rgba(30, 15, 4, 0.42),
-        inset 0 2px 3px rgba(255, 220, 180, 0.45);
+        0 4px 0 #064e3b,
+        0 6px 10px rgba(6, 78, 59, 0.38),
+        inset 0 2px 3px rgba(209, 250, 229, 0.65);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,9 +149,9 @@
     .facedown-piece::after {
       content: '';
       position: absolute;
-      inset: 12%;
+      inset: 11%;
       border-radius: 9999px;
-      border: 1.5px dashed rgba(253, 230, 195, 0.45);
+      border: 1.5px solid rgba(236, 253, 245, 0.55);
       pointer-events: none;
     }
 
@@ -302,6 +302,10 @@
         <span id="leftBadgeIcon">🀄</span>
         <span id="leftBadgeText">傳統象棋</span>
       </div>
+      <button id="btnRotateDarkBoard" class="hidden bg-emerald-100 hover:bg-white text-emerald-950 font-extrabold px-2.5 py-1.5 rounded-full text-xs sm:text-sm shadow active:scale-95 transition flex items-center gap-1 border border-emerald-400">
+        <span>🔄</span>
+        <span id="rotateDarkLabel">直盤 4×8</span>
+      </button>
       <button id="btnOpenMenu" class="bg-amber-100 hover:bg-white text-[#4e2a0e] font-extrabold px-3 py-1.5 rounded-full text-xs sm:text-sm shadow active:scale-95 transition flex items-center gap-1 border border-amber-300">
         <span>⚙️</span>
         <span>切換模式/對手</span>
@@ -317,6 +321,9 @@
       </div>
       <button id="btnRules" class="bg-amber-600/90 hover:bg-amber-500 text-white font-bold px-2.5 py-1.5 rounded-full text-xs sm:text-sm shadow active:scale-95 transition">
         📖 玩法
+      </button>
+      <button id="btnInstallGuide" class="bg-sky-600 hover:bg-sky-500 text-white font-bold px-2.5 py-1.5 rounded-full text-xs sm:text-sm shadow active:scale-95 transition">
+        📲 裝到桌面
       </button>
       <button id="btnRestartTop" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1.5 rounded-full text-xs sm:text-sm shadow active:scale-95 transition">
         🔄 新局
@@ -422,7 +429,7 @@
           親子歡樂象棋＆暗棋二合一
         </h1>
         <p class="text-xs sm:text-sm text-amber-900/80 mt-0.5 font-medium">
-          點選下方大型圖卡，發亮打勾 ✅ 的就是目前選中的玩法喔！
+          點選下方大型圖卡，亮框打勾（✓）的就是目前選中的玩法喔！
         </p>
       </div>
 
@@ -436,9 +443,9 @@
         </div>
         <div class="grid grid-cols-2 gap-3">
           <!-- 卡片 A：傳統象棋 -->
-          <button type="button" data-select-game="xiangqi" class="setup-card menu-game-btn is-selected rounded-2xl p-3 sm:p-3.5 text-left bg-gradient-to-br from-[#f8dfb9] to-[#e7be84] border-2 border-[#b98344]">
-            <span class="selected-badge absolute top-2 right-2 bg-emerald-600 text-white text-[11px] sm:text-xs font-black px-2 py-0.5 rounded-full shadow">
-              ✅ 已選擇
+          <button type="button" data-select-game="xiangqi" class="relative setup-card menu-game-btn is-selected rounded-2xl p-3 sm:p-3.5 text-left bg-gradient-to-br from-[#f8dfb9] to-[#e7be84] border-2 border-[#b98344]">
+            <span class="selected-badge absolute -top-2 -right-2 w-7 h-7 rounded-full bg-emerald-600 text-white text-sm font-black flex items-center justify-center shadow-md border-2 border-white" aria-label="已選取">
+              ✓
             </span>
             <div class="flex items-center gap-2 mb-1.5">
               <span class="text-2xl sm:text-3xl">🀄</span>
@@ -458,22 +465,22 @@
           </button>
 
           <!-- 卡片 B：台灣暗棋 -->
-          <button type="button" data-select-game="darkchess" class="setup-card menu-game-btn is-unselected rounded-2xl p-3 sm:p-3.5 text-left bg-gradient-to-br from-[#d9f2e1] to-[#a7dec0] border-2 border-[#4f9a6e]">
-            <span class="selected-badge hidden absolute top-2 right-2 bg-emerald-600 text-white text-[11px] sm:text-xs font-black px-2 py-0.5 rounded-full shadow">
-              ✅ 已選擇
+          <button type="button" data-select-game="darkchess" class="relative setup-card menu-game-btn is-unselected rounded-2xl p-3 sm:p-3.5 text-left bg-gradient-to-br from-[#d9f2e1] to-[#a7dec0] border-2 border-[#4f9a6e]">
+            <span class="selected-badge hidden absolute -top-2 -right-2 w-7 h-7 rounded-full bg-emerald-600 text-white text-sm font-black flex items-center justify-center shadow-md border-2 border-white" aria-label="已選取">
+              ✓
             </span>
             <div class="flex items-center gap-2 mb-1.5">
               <span class="text-2xl sm:text-3xl">🎲</span>
               <div>
                 <div class="font-black text-base sm:text-lg text-[#14472a] leading-tight">台灣暗棋</div>
-                <div class="text-[11px] sm:text-xs font-bold text-[#1f633c]">半盤 4×8・翠綠竹林盤</div>
+                <div class="text-[11px] sm:text-xs font-bold text-[#1f633c]">半盤 4×8・翠綠蓋牌</div>
               </div>
             </div>
             <!-- 迷你蓋牌翻棋視覺預覽 -->
-            <div class="mt-2 bg-[#2e6f40] border-2 border-[#6e421b] rounded-xl py-1.5 px-2 flex justify-center items-center gap-2 shadow-inner">
-              <span class="w-5 h-5 rounded-full bg-[#8b4f21] border border-amber-200/70 inline-block shadow-xs"></span>
+            <div class="mt-2 bg-[#e6be8a] border-2 border-[#75461c] rounded-xl py-1.5 px-2 flex justify-center items-center gap-2 shadow-inner">
+              <span class="w-5 h-5 rounded-full bg-[#10b981] border border-emerald-100 inline-block shadow-xs"></span>
               <span class="w-5 h-5 rounded-full bg-[#fdf5e6] text-red-700 font-black kai-font text-xs inline-flex items-center justify-center shadow-xs">兵</span>
-              <span class="w-5 h-5 rounded-full bg-[#8b4f21] border border-amber-200/70 inline-block shadow-xs"></span>
+              <span class="w-5 h-5 rounded-full bg-[#10b981] border border-emerald-100 inline-block shadow-xs"></span>
               <span class="w-5 h-5 rounded-full bg-[#fdf5e6] text-neutral-900 font-black kai-font text-xs inline-flex items-center justify-center shadow-xs">將</span>
             </div>
           </button>
@@ -486,9 +493,9 @@
             <span>暗棋規則：炮（包）可不可以「暗吃」？</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <button type="button" data-select-blind="true" class="setup-card menu-blind-btn is-selected bg-white rounded-xl p-2.5 text-left border-2 border-emerald-300">
-              <span class="selected-badge absolute top-1.5 right-1.5 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
-                ✅ 已選擇
+            <button type="button" data-select-blind="true" class="relative setup-card menu-blind-btn is-selected bg-white rounded-xl p-2.5 text-left border-2 border-emerald-300">
+              <span class="selected-badge absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow border-2 border-white" aria-label="已選取">
+                ✓
               </span>
               <div class="font-black text-sm text-[#4a2508] flex items-center gap-1.5">
                 <span>💥</span>
@@ -499,9 +506,9 @@
               </div>
             </button>
 
-            <button type="button" data-select-blind="false" class="setup-card menu-blind-btn is-unselected bg-white rounded-xl p-2.5 text-left border-2 border-emerald-300">
-              <span class="selected-badge hidden absolute top-1.5 right-1.5 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
-                ✅ 已選擇
+            <button type="button" data-select-blind="false" class="relative setup-card menu-blind-btn is-unselected bg-white rounded-xl p-2.5 text-left border-2 border-emerald-300">
+              <span class="selected-badge hidden absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow border-2 border-white" aria-label="已選取">
+                ✓
               </span>
               <div class="font-black text-sm text-[#4a2508] flex items-center gap-1.5">
                 <span>🛡️</span>
@@ -524,9 +531,9 @@
           <span class="text-xs font-bold text-amber-800">選擇對戰對象</span>
         </div>
         <div class="grid grid-cols-2 gap-2.5">
-          <button type="button" data-select-opponent="pvp_side" class="setup-card menu-opp-btn is-selected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
-            <span class="selected-badge absolute top-1.5 right-1.5 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
-              ✅ 已選擇
+          <button type="button" data-select-opponent="pvp_side" class="relative setup-card menu-opp-btn is-selected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
+            <span class="selected-badge absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow border-2 border-white" aria-label="已選取">
+              ✓
             </span>
             <span class="text-2xl sm:text-3xl shrink-0">👨‍👦</span>
             <div>
@@ -535,9 +542,9 @@
             </div>
           </button>
 
-          <button type="button" data-select-opponent="pvp_flip" class="setup-card menu-opp-btn is-unselected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
-            <span class="selected-badge hidden absolute top-1.5 right-1.5 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
-              ✅ 已選擇
+          <button type="button" data-select-opponent="pvp_flip" class="relative setup-card menu-opp-btn is-unselected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
+            <span class="selected-badge hidden absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow border-2 border-white" aria-label="已選取">
+              ✓
             </span>
             <span class="text-2xl sm:text-3xl shrink-0">🔄</span>
             <div>
@@ -546,9 +553,9 @@
             </div>
           </button>
 
-          <button type="button" data-select-opponent="ai_easy" class="setup-card menu-opp-btn is-unselected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
-            <span class="selected-badge hidden absolute top-1.5 right-1.5 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
-              ✅ 已選擇
+          <button type="button" data-select-opponent="ai_easy" class="relative setup-card menu-opp-btn is-unselected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
+            <span class="selected-badge hidden absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow border-2 border-white" aria-label="已選取">
+              ✓
             </span>
             <span class="text-2xl sm:text-3xl shrink-0">🐻</span>
             <div>
@@ -557,9 +564,9 @@
             </div>
           </button>
 
-          <button type="button" data-select-opponent="ai_hard" class="setup-card menu-opp-btn is-unselected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
-            <span class="selected-badge hidden absolute top-1.5 right-1.5 bg-emerald-600 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
-              ✅ 已選擇
+          <button type="button" data-select-opponent="ai_hard" class="relative setup-card menu-opp-btn is-unselected bg-white rounded-2xl p-2.5 sm:p-3 text-left border-2 border-[#d5b384] flex items-center gap-2.5">
+            <span class="selected-badge hidden absolute -top-2 -right-2 w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow border-2 border-white" aria-label="已選取">
+              ✓
             </span>
             <span class="text-2xl sm:text-3xl shrink-0">🧠</span>
             <div>
@@ -674,6 +681,56 @@
 
       <button id="btnRulesOk" class="w-full mt-4 bg-amber-600 hover:bg-amber-500 text-white font-extrabold py-2.5 rounded-2xl shadow">
         我知道了，開始玩吧！
+      </button>
+    </div>
+  </div>
+
+  <!-- 📲 裝到手機桌面與離線永久快取保護彈窗 -->
+  <div id="installModal" class="hidden fixed inset-0 bg-black/65 backdrop-blur-xs z-50 flex items-center justify-center p-3">
+    <div class="bg-[#fdf7ed] border-4 border-[#8c5828] rounded-3xl max-w-md w-full p-5 shadow-2xl max-h-[90dvh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b-2 border-amber-200 pb-2.5 mb-3">
+        <h2 class="text-lg sm:text-xl font-black text-[#4d290c] flex items-center gap-2">
+          <span>📲</span>
+          <span>把遊戲裝到手機桌面</span>
+        </h2>
+        <button id="btnCloseInstall" class="w-8 h-8 rounded-full bg-amber-200 hover:bg-amber-300 text-amber-950 font-black">✕</button>
+      </div>
+
+      <!-- 離線儲存保護狀態顯示卡 -->
+      <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-3 mb-3.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold text-emerald-950">🛡️ 瀏覽器永久儲存保護狀態：</span>
+          <span id="persistStatusBadge" class="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-950">
+            偵測中...
+          </span>
+        </div>
+        <p id="persistStatusDesc" class="text-xs text-emerald-900/90 mt-1.5 leading-relaxed">
+          首次連線開啟後可供離線遊玩；瀏覽器可能依儲存空間及自身政策清除快取。
+        </p>
+      </div>
+
+      <div class="space-y-2.5 text-xs sm:text-sm text-[#3b2310]">
+        <div class="bg-white border border-amber-200 rounded-2xl p-3">
+          <div class="font-black text-amber-950 mb-1">🍎 iPhone / iPad（Safari 瀏覽器）</div>
+          <ol class="list-decimal pl-4 space-y-1 text-xs text-stone-700 font-medium">
+            <li>點擊畫面下方（或右上角）的 <strong>「分享」按鈕（方框＋向上箭頭 ⬆️）</strong>。</li>
+            <li>往下滑動選單，點選 <strong>「加入主畫面 ➕」</strong>。</li>
+            <li>按右上角「新增」，桌面就會出現專屬棋藝圖示，點開即全螢幕遊玩！</li>
+          </ol>
+        </div>
+
+        <div class="bg-white border border-amber-200 rounded-2xl p-3">
+          <div class="font-black text-amber-950 mb-1">🤖 Android 手機 / 平板（Chrome 瀏覽器）</div>
+          <ol class="list-decimal pl-4 space-y-1 text-xs text-stone-700 font-medium">
+            <li>點擊右上角的 <strong>「⋮」更多選單</strong>。</li>
+            <li>點選 <strong>「加到主畫面」</strong> 或 <strong>「安裝應用程式」</strong>。</li>
+            <li>確認安裝後，即可從桌面圖示一鍵啟動。</li>
+          </ol>
+        </div>
+      </div>
+
+      <button id="btnInstallOk" class="w-full mt-4 bg-sky-600 hover:bg-sky-500 text-white font-extrabold py-2.5 rounded-2xl shadow">
+        太棒了，我學會了！
       </button>
     </div>
   </div>
@@ -837,6 +894,7 @@
       gameType: 'xiangqi',        // 'xiangqi' | 'darkchess'
       opponentMode: 'pvp_side',   // 'pvp_side' | 'pvp_flip' | 'ai_easy' | 'ai_hard'
       allowBlindCapture: true,    // 暗棋炮是否可「暗吃」蓋牌
+      darkBoardOrientation: 'auto', // 'auto' | 'vertical' (4x8) | 'horizontal' (8x4)
       hasActiveGame: false,
       board: null,
       turn: 'red',                // 'red' | 'black'
@@ -1839,15 +1897,24 @@
       const leftBadge = document.getElementById('leftGameBadge');
       const leftIcon = document.getElementById('leftBadgeIcon');
       const leftText = document.getElementById('leftBadgeText');
+      const rotateBtn = document.getElementById('btnRotateDarkBoard');
+      const rotateLabel = document.getElementById('rotateDarkLabel');
 
       if (appState.gameType === 'xiangqi') {
         leftBadge.className = 'inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-3 py-1.5 rounded-full text-xs sm:text-sm shadow border border-amber-200/60';
         leftIcon.textContent = '🀄';
         leftText.textContent = '傳統象棋';
+        if (rotateBtn) rotateBtn.classList.add('hidden');
       } else {
         leftBadge.className = 'inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black px-3 py-1.5 rounded-full text-xs sm:text-sm shadow border border-emerald-200/60';
         leftIcon.textContent = '🎲';
         leftText.textContent = appState.allowBlindCapture ? '台灣暗棋（可暗吃）' : '台灣暗棋（不可暗吃）';
+        if (rotateBtn) {
+          rotateBtn.classList.remove('hidden');
+          if (rotateLabel) {
+            rotateLabel.textContent = isDarkBoardVertical() ? '直盤 4×8' : '橫盤 8×4';
+          }
+        }
       }
 
       const oppShortNames = {
@@ -2085,23 +2152,39 @@
       wrapper.appendChild(boardEl);
     }
 
+    function isDarkBoardVertical() {
+      if (appState.darkBoardOrientation === 'vertical') return true;
+      if (appState.darkBoardOrientation === 'horizontal') return false;
+      return window.innerHeight >= window.innerWidth;
+    }
+
     function renderDarkChessBoard(wrapper, availW, availH) {
-      // 8 columns x 4 rows 橫向暗棋盤（在手機與平板上都很好按且大顆）
-      const cellSize = Math.floor(Math.min((availW - 12) / 8, (availH - 12) / 4));
-      const boardW = cellSize * 8 + 10;
-      const boardH = cellSize * 4 + 10;
+      const isVertical = isDarkBoardVertical();
+      // 直向為 4 直行 × 8 橫列；橫向為 8 直行 × 4 橫列
+      const visCols = isVertical ? 4 : 8;
+      const visRows = isVertical ? 8 : 4;
+
+      const cellSize = Math.floor(Math.min((availW - 12) / visCols, (availH - 12) / visRows));
+      const boardW = cellSize * visCols + 10;
+      const boardH = cellSize * visRows + 10;
       const pieceSize = Math.floor(cellSize * 0.84);
-      const fontSize = Math.floor(pieceSize * 0.56);
+      const fontSize = Math.floor(pieceSize * 0.58);
 
       const boardEl = document.createElement('div');
-      boardEl.className = 'dark-board-surface rounded-2xl p-1 grid grid-cols-8 grid-rows-4 gap-0';
+      boardEl.className = 'dark-board-surface rounded-2xl p-1 grid gap-0';
+      boardEl.style.gridTemplateColumns = `repeat(${visCols}, minmax(0, 1fr))`;
+      boardEl.style.gridTemplateRows = `repeat(${visRows}, minmax(0, 1fr))`;
       boardEl.style.width = `${boardW}px`;
       boardEl.style.height = `${boardH}px`;
 
-      for (let r = 0; r < 4; r++) {
-        for (let c = 0; c < 8; c++) {
+      for (let vr = 0; vr < visRows; vr++) {
+        for (let vc = 0; vc < visCols; vc++) {
+          // 將視覺座標 (vr, vc) 對應回邏輯棋盤座標 (r: 0..3, c: 0..7)
+          const r = isVertical ? vc : vr;
+          const c = isVertical ? vr : vc;
+
           const cell = document.createElement('div');
-          cell.className = 'relative border border-[#f5eedc]/55 flex items-center justify-center cursor-pointer';
+          cell.className = 'relative border border-[#5e3714]/65 flex items-center justify-center cursor-pointer';
           cell.addEventListener('click', () => handleCellClick(r, c));
 
           const isLastFrom = appState.lastMove && appState.lastMove.from && appState.lastMove.from.r === r && appState.lastMove.from.c === c;
@@ -2258,6 +2341,14 @@
       startNewGame();
     });
 
+    document.getElementById('btnRotateDarkBoard').addEventListener('click', () => {
+      const currentlyVertical = isDarkBoardVertical();
+      appState.darkBoardOrientation = currentlyVertical ? 'horizontal' : 'vertical';
+      audio.playFlip();
+      updateTopDualBadges();
+      renderBoard();
+    });
+
     document.getElementById('btnOpenMenu').addEventListener('click', () => {
       pendingGameType = appState.gameType;
       pendingOpponentMode = appState.opponentMode;
@@ -2324,18 +2415,70 @@
       document.getElementById('rulesModal').classList.add('hidden');
     });
 
-    // 視窗大小改變時自動重新計算棋盤尺寸
-    window.addEventListener('resize', () => {
-      if (appState.hasActiveGame) renderBoard();
-    });
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-      });
+    // ----------------------------------------------------------------------------
+    // 9. PWA 與持久性儲存
+    // ----------------------------------------------------------------------------
+    function setupPWA() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(error => {
+          console.error('Service Worker 註冊失敗，無法離線遊玩：', error);
+        });
+      }
     }
 
+    async function requestAndCheckPersistentStorage() {
+      const badge = document.getElementById('persistStatusBadge');
+      const desc = document.getElementById('persistStatusDesc');
+      if (!badge || !desc) return;
+
+      try {
+        if (navigator.storage && navigator.storage.persist) {
+          let isPersisted = await navigator.storage.persisted();
+          if (!isPersisted) {
+            isPersisted = await navigator.storage.persist();
+          }
+          if (isPersisted) {
+            badge.textContent = '✅ 已開啟永久保護';
+            badge.className = 'text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-600 text-white';
+            desc.textContent = '瀏覽器已核准持久性儲存，但使用者仍可手動清除網站資料。';
+          } else {
+            badge.textContent = '⏳ 建議加入主畫面';
+            badge.className = 'text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-950';
+            desc.textContent = '瀏覽器尚未核准持久性儲存，離線快取仍可能因儲存空間或瀏覽器政策而清除。';
+          }
+        } else {
+          badge.textContent = '📱 支援加入主畫面';
+          desc.textContent = '此瀏覽器不支援查詢持久性儲存；離線快取仍可能被清除。';
+        }
+      } catch (e) {
+        console.error('無法查詢持久性儲存狀態：', e);
+        badge.textContent = '⚠️ 無法查詢狀態';
+        desc.textContent = '無法查詢儲存保護狀態；離線快取仍可能被清除。';
+      }
+    }
+
+    document.getElementById('btnInstallGuide').addEventListener('click', () => {
+      requestAndCheckPersistentStorage();
+      document.getElementById('installModal').classList.remove('hidden');
+    });
+    document.getElementById('btnCloseInstall').addEventListener('click', () => {
+      document.getElementById('installModal').classList.add('hidden');
+    });
+    document.getElementById('btnInstallOk').addEventListener('click', () => {
+      document.getElementById('installModal').classList.add('hidden');
+    });
+
+    // 視窗大小改變時自動重新計算棋盤尺寸
+    window.addEventListener('resize', () => {
+      if (appState.hasActiveGame) {
+        updateTopDualBadges();
+        renderBoard();
+      }
+    });
+
     window.onload = () => {
+      setupPWA();
+      requestAndCheckPersistentStorage();
       syncMenuSelectionsUI();
       // 預先在背景初始化一盤象棋畫面，並顯示主選單讓親子挑選模式
       appState.board = createInitialXiangqiBoard();
